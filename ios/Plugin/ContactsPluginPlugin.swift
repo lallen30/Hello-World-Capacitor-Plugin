@@ -5,24 +5,14 @@ import Capacitor
 public class ContactsPluginPlugin: CAPPlugin {
 
     @objc func showHelloWorld(_ call: CAPPluginCall) {
-        print("showHelloWorld function called") // Added console log
-        DispatchQueue.main.async {
-            let helloWorldVC = HelloWorldViewController()
-            let navigationController = UINavigationController(rootViewController: helloWorldVC)
-            
-            navigationController.pushViewController(navigationController, animated: true)
+            DispatchQueue.main.async {
+                let helloWorldVC = HelloWorldViewController()
+                let navigationController = UINavigationController(rootViewController: helloWorldVC)
+                
+                if let viewController = self.bridge?.viewController {
+                    viewController.present(navigationController, animated: true, completion: nil)
+                }
+            }
+            call.resolve()
         }
-        call.resolve()
-    }
-
-    @objc func showHelloWorld2(_ call: CAPPluginCall) {
-        print("showHelloWorld function called") // Added console log
-        DispatchQueue.main.async {
-            let helloWorldVC = HelloWorldViewController()
-            let navigationController = UINavigationController(rootViewController: helloWorldVC)
-            
-            navigationController.pushViewController(navigationController, animated: true)
-        }
-        call.resolve()
-    }
 }
